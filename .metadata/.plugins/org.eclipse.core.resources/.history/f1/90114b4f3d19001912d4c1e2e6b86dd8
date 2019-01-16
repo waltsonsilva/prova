@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Colegiada - Cadastro de Turmas</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+
+	<div class="container">
+		<h2>Turma</h2>
+		<h5>Adicionar/Editar/Pesquisar:</h5>
+		<form class="form-narrow form-horizontal" method="post"
+			th:action="@{/turmas/saveList}" th:object="${turma}">
+			<input type="hidden" id="id" th:field="*{id}" />
+			<table class="table table-striped">
+				<tr>
+					<td>Curso:</td>
+					<td>
+						<select class="form-control" id="curso" th:field="*{curso}">
+							<option 
+								th:each="item : ${listaCursos}" 
+								th:value="${item.id}"
+								
+								th:text="${item.nome}" selected="selected"></option>
+						</select> 
+					</td>
+				</tr>
+				<tr>
+					<td>Turno</td>
+					<td>
+						<select class="form-control" id="turno" th:field="*{turno}">
+							<option style="text-transform: capitalize"
+								th:each="item : ${listaTurnos}" 
+								th:value="${item}"	
+								th:text="${item.text}" selected="selected"></option>
+						</select> 
+					</td>
+
+				</tr>
+				<tr>
+					<td>Ano</td>
+					<td><input type="number" min="2018" id="ano" value="" size="6"
+					placeholder="Ano de entrada" th:field="*{ano}" /></td>
+				</tr>
+				<tr>
+					<td>Entrada</td>
+					<td>
+					<input type="radio" id="entrada" placeholder="Entrada" th:field="*{entrada}" value="1" />1ª Entrada &nbsp;&nbsp;&nbsp;
+					<input type="radio" id="entrada" placeholder="Entrada" th:field="*{entrada}" value="2" />2ª Entrada
+					</td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td>
+					<input type="radio" id="status" placeholder="Ativo" th:field="*{flagStatus}" value="1" />Ativo &nbsp;&nbsp;&nbsp;
+					<input type="radio" id="status" placeholder="Inativo" th:field="*{flagStatus}" value="2" />Inativo
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<button type="submit" class="btn btn-primary"  name="action" value="salvar">Salvar</button>&nbsp;&nbsp;					
+						<button type="submit" class="btn btn-info" name="action" value="pesquisar">Pesquisar</button>&nbsp;&nbsp;
+						<a th:href="@{/turmas/saveList}" class="btn btn-info">Nova</a>
+					</td>
+				</tr>
+			</table>
+			<div class="alert alert-success" th:if="${mensagemSucesso}"
+				th:text="${mensagemSucesso}"></div>
+			<div class="alert alert-danger" th:if="${mensagemErro}"
+				th:text="${mensagemErro}"></div>
+		</form>		
+		<hr/>
+		<h5>Lista de Turmas:</h5>		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Curso</th>
+					<th>Turno</th>
+					<th>Ano</th>
+					<th>Entrada</th>
+					<th>Editar</th>
+					<th>Remover</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="turma : ${lista}">
+					<td th:text="${turma.curso.nome}"></td>
+					<td th:text="${turma.turno.text}"></td>
+					<td th:text="${turma.ano}"></td>
+					<td th:text="${turma.entrada}"></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/turmas/edit/{id}(id=${turma.id})}">Editar</a></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/turmas/remover/{id}(id=${turma.id})}">Remover</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr></hr>
+
+		<h6>
+			<a th:href="@{/}">Home</a>
+		</h6>
+	</div>
+</body>
+</html>

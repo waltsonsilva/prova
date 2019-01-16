@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Colegiada - Cadastro de Disciplinas</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+
+	<div class="container">
+		<h2>Disciplina</h2>
+		<h5>Adicionar/Editar/Pesquisar:</h5>
+		<form class="form-narrow form-horizontal" method="post"
+			th:action="@{/disciplinas/saveList}" th:object="${disciplina}">
+			<input type="hidden" id="id" th:field="*{id}" />
+			<table class="table table-striped">
+				<tr>
+					<td>Curso:</td>
+					<td>
+						<select class="form-control" id="curso" th:field="*{curso}">
+							<option 
+								th:each="item : ${listaCursos}" 
+								th:value="${item.id}"
+								
+								th:text="${item.nome}" selected="selected"></option>
+						</select> 
+					</td>
+				</tr>
+				<tr>
+					<td>Nome da disciplina: </td>
+					<td><input type="text" id="nome" size="40"
+					placeholder="Nome" th:field="*{nome}" /></td>
+				</tr>
+				<tr>
+					<td>Carga Horária: </td>
+					<td><input type="text" id="cargaHoraria"
+					placeholder="Carga Horária" th:field="*{cargaHoraria}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<button type="submit" class="btn btn-primary"  name="action" value="salvar">Salvar</button>&nbsp;&nbsp;					
+						<button type="submit" class="btn btn-info" name="action" value="pesquisar">Pesquisar</button>&nbsp;&nbsp;
+						<a th:href="@{/disciplinas/saveList}" class="btn btn-info">Nova Disciplina</a>
+					</td>
+				</tr>
+			</table>
+			<div class="alert alert-success" th:if="${mensagemSucesso}"
+				th:text="${mensagemSucesso}"></div>
+			<div class="alert alert-danger" th:if="${mensagemErro}"
+				th:text="${mensagemErro}"></div>
+		</form>		
+		<hr/>
+		<h5>Lista de Disciplinas:</h5>		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Curso</th>
+					<th>Nome</th>
+					<th>Carga horária</th>
+					<th>Editar</th>
+					<th>Remover</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="disciplina : ${lista}">
+					<td th:text="${disciplina.curso.nome}"></td>
+					<td th:text="${disciplina.nome}"></td>
+					<td th:text="${disciplina.cargaHoraria}"></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/disciplinas/edit/{id}(id=${disciplina.id})}">Editar</a></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/disciplinas/remover/{id}(id=${disciplina.id})}">Remover</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr></hr>
+
+		<h6>
+			<a th:href="@{/}">Home</a>
+		</h6>
+	</div>
+</body>
+</html>

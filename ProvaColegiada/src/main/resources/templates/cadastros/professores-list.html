@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Colegiada - Cadastro de Professores</title>
+</head>
+<body>
+	<div th:insert="header"></div>
+
+	<div class="container">
+	    <h2>Professor</h2>
+		<h5>Adicionar ... Editar ... Pesquisar</h5>
+		<form class="form-narrow form-horizontal" method="post"
+			th:action="@{/professores/saveList}" th:object="${professor}">
+			<input type="hidden" id="id" th:field="*{id}" />
+			<table class="table table-striped">
+				<tr>
+					<td>Nome: </td>
+					<td><input type="text" id="nome" size="40"
+					placeholder="Nome" th:field="*{nome}" /></td>
+				</tr>
+				<tr>
+					<td>E-mail: </td>
+					<td><input type="text" id="email" size="40"
+					placeholder="E-mail" th:field="*{email}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right">
+						<button type="submit" class="btn btn-primary"  name="action" value="salvar">Salvar</button>&nbsp;&nbsp;					
+						<button type="submit" class="btn btn-info" name="action" value="pesquisar">Pesquisar</button>&nbsp;&nbsp;
+						<a th:href="@{/professores/saveList}" class="btn btn-info">Novo</a>
+					</td>
+				</tr>
+			</table>
+			<div class="alert alert-success" th:if="${mensagemSucesso}"
+				th:text="${mensagemSucesso}"></div>
+			<div class="alert alert-danger" th:if="${mensagemErro}"
+				th:text="${mensagemErro}"></div>
+		</form>		
+		<hr/>
+		<h5>Lista de Professores:</h5>		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Editar</th>
+					<th>Remover</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="professor : ${lista}">
+					<td th:text="${professor.nome}"></td>
+					<td th:text="${professor.email}"></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/professores/edit/{id}(id=${professor.id})}">Editar</a></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/professores/remover/{id}(id=${professor.id})}">Remover</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr></hr>
+
+		<h6>
+			<a th:href="@{/}">Home</a>
+		</h6>
+	</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+## H2
+#spring.h2.console.enabled=true
+#spring.h2.console.path=/h2
+#
+## Datasource
+#spring.datasource.url=jdbc:h2:file:/Users/fnascimento/desenv/bd-h2
+#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.datasource.driver-class-name=org.h2.Driver
+#spring.jpa.hibernate.ddl-auto=update
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.url = jdbc:mysql://localhost:3306/prova_colegiada?useSSL=false
+spring.datasource.username = admin
+spring.datasource.password = 1234
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto = update
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
