@@ -19,6 +19,7 @@ public class Disciplina {
 	private Curso curso;
 	private int cargaHoraria;
 	private String ementa;
+	private String periodo;
 	
 	@ManyToMany
 	private List<Disciplina> prerequisitos;
@@ -63,6 +64,12 @@ public class Disciplina {
 	}
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+	public String getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
 	}
 	
 }
