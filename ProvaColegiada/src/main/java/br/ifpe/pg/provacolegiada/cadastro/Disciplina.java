@@ -3,10 +3,11 @@ package br.ifpe.pg.provacolegiada.cadastro;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -19,17 +20,21 @@ public class Disciplina {
 	private Curso curso;
 	private int cargaHoraria;
 	private String ementa;
+
+	@Enumerated(EnumType.STRING)
+	private Periodo periodo;
 	
 	public Disciplina() {
 		super();
 	}
-	public Disciplina(Integer id, String nome, Curso curso, int cargaHoraria, String ementa) {
+	public Disciplina(Integer id, String nome, Curso curso, int cargaHoraria, String ementa, Periodo periodo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.curso = curso;
 		this.cargaHoraria = cargaHoraria;
 		this.ementa = ementa;
+		this.periodo = periodo;
 	}
 	public Integer getId() {
 		return id;
@@ -60,6 +65,12 @@ public class Disciplina {
 	}
 	public void setCurso(Curso curso) {
 		this.curso = curso;
+	}
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 
 	
