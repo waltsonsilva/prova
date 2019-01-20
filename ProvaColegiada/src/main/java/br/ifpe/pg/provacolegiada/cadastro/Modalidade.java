@@ -2,7 +2,8 @@ package br.ifpe.pg.provacolegiada.cadastro;
 
 public enum Modalidade {
 
-	EAD("EAD"), PRESENCIAL("Presencial");
+	EAD("EAD"), 
+	PRESENCIAL("Presencial");
 
 	String text;
 
