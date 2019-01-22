@@ -13,14 +13,14 @@ public enum Periodo {
     NONO("9° Período"),
     DECIMO("10° Período");
 
-    String text;
+	  String text;
 
-    Periodo(String t) {
-        this.text = t;
-    }
+	    Periodo(String t) {
+	        this.text = t;
+	    }
 
-    public String getText() {
-        return this.text;
-    }
+	    public String getText() {
+	        return this.text;
+	    }
 	
 }
