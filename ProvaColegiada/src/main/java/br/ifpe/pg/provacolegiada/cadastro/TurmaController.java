@@ -25,7 +25,7 @@ public class TurmaController {
 
 	@RequestMapping(value="saveList", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView salvarPesquisarTurma(@Valid @ModelAttribute Turma turma, @RequestParam(value="action", 
-		required=false) String action, Errors errors, RedirectAttributes ra) {
+		required=false) String action, Errors errors, RedirectAttributes ra) throws Exception {
 		
 		if (action != null && action.equals("salvar")) {
 			return salvar(turma, errors, ra);
@@ -35,7 +35,7 @@ public class TurmaController {
 	}
 	
 	@GetMapping("list")
-	public ModelAndView pesquisar(Turma turma) {
+	public ModelAndView pesquisar(Turma turma) throws Exception {
 		ModelAndView mv = new ModelAndView("cadastros/turmas-list");
 		if (turma == null || turma.getId() == null) {
 			mv.addObject("lista", turmaService.listarTodas());	
@@ -48,7 +48,7 @@ public class TurmaController {
 		return mv;
 	}
 
-	private ModelAndView salvar(@Valid @ModelAttribute Turma turma, Errors errors, RedirectAttributes ra) {
+	private ModelAndView salvar(@Valid @ModelAttribute Turma turma, Errors errors, RedirectAttributes ra) throws Exception {
 		if (errors.hasErrors()) {
 			ra.addFlashAttribute("mensagemErro", "Não foi possível salvar turma: " + errors.getFieldErrors());
 		} else {
@@ -63,10 +63,15 @@ public class TurmaController {
 	}
 
 	@GetMapping("edit/{id}")
-	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) {
+	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) throws Exception {
 		Turma turma = turmaService.buscarPorId(id);
 		ModelAndView mv = new ModelAndView("cadastros/turmas-list");
-		mv.addObject("lista", turmaService.listarTodas());	
+		try {
+			mv.addObject("lista", turmaService.listarTodas());	
+		}catch(Exception e) {
+			mv.addObject("mensagemErro", "Tem que haver cursos previamente cadastrados! ");
+		}
+		
 		mv.addObject("listaCursos", cursoService.listarTodos());
 		mv.addObject("listaTurnos", Turno.values());
 		mv.addObject("turma", turma);

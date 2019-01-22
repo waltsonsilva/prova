@@ -1,67 +1,96 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="httP://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+
+<th:block th:fragment="headerBlock">
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		charset="UTF-8" />
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</th:block>
+
 <title>Colegiada :: Home</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/main.css}"
-	href="../../css/main.css" />
 
 </head>
 <body>
+	<th:block th:fragment="navBar">
+		<nav class="navbar navbar-default navbar-static-top"
+			th:fragment="header">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" th:href="@{/}">:: Colegiada ::</a>
+				</div>
+				<div
+					sec:authorize="hasAnyRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Home</a></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"> Cadastro<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a th:href="@{/cursos/list}">Curso</a></li>
+									<li><a th:href="@{/disciplinas/list}">Disciplina</a></li>
+									<li><a th:href="@{/professores/list}">Professor</a></li>
+									<li><a th:href="@{/turmas/list}">Turma</a></li>
+									<li role="separator" class="divider"></li>
+									<li class="dropdown-header">Provas</li>
+									<li><a href="#">Questão</a></li>
+									<li><a href="#">Gerar prova</a></li>
+								</ul></li>
+						</ul>
+						<ul class="nav navbar-right">
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown">Usuário logado: <span
+									sec:authentication="name"></span> <span
+									sec:authentication="principal.authorities"></span>
 
-  <nav class="navbar navbar-default navbar-static-top" th:fragment="header">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" th:href="@{/}">:: Colegiada ::</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Cadastro<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a th:href="@{/cursos/list}">Curso</a></li>
-              <li><a th:href="@{/disciplinas/list}">Disciplina</a></li>
-              <li><a th:href="@{/professores/list}">Professor</a></li>
-              <li><a th:href="@{/turmas/list}">Turma</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">Provas</li>
-              <li><a href="#">Questão</a></li>
-              <li><a href="#">Gerar prova</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-          <input type="text" class="form-control" placeholder="Pesquisar">
-          </div>
-          <button type="submit" class="btn btn-default">Pesquisar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
 
+							</a>
+								<ul class="dropdown-menu">
+
+									<li><a sec:authorize="hasAnyRole('ROLE_ADMIN')"
+										th:href="@{/novo-usuario}" class="btn">Criar usuário</a></li>
+									<li><a sec:authorize="hasAnyRole('ROLE_ADMIN')"
+										th:href="@{/usuarios/list}" class="btn">Listar usuários</a></li>
+									<li>
+										<form th:action="@{/logout}" method="post">
+											<input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
+											<button type="submit" class="btn">
+												<span class="glyphicon glyphicon-log-out"></span> Sair
+											</button>
+										</form>
+									</li>
+								</ul></li>
+						</ul>
+					</div>
+				</div>
+		</nav>
+	</th:block>
 	<!-- /.container -->
-
 
 </body>
 </html>

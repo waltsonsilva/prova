@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Colegiada :: Login</title>
+<div th:replace="header :: headerBlock"></div>
+</head>
+<body>
+	<div th:replace="header :: navBar"></div>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-sm-4 py-2"></div>
+			<div class="col-sm-4 py-2">
+				<h2>:: Novo Usuário</h2>
+				<div class="card bg-info text-white h-100">
+					<br />
+					<div class="card-body">
+						<form th:action="@{/criarUsuario}" method="post">
+							<div class="form-group">
+								<label>Nome: </label> <input class="form-control"
+									required="required" type="text" size="10" name="nome"
+									placeholder="Informe o nome" />
+							</div>
+							<div class="form-group">
+								<label>E-mail: </label> <input class="form-control"
+									required="required" type="text" size="10" name="email"
+									placeholder="Informe o e-mail" />
+							</div>
+							<div class="form-group">
+								<label>Senha: </label> <input class="form-control"
+									required="required" type="password" size="20" name="senha"
+									placeholder="Informe a senha" />
+							</div>
+							<div class="form-group">
+								<label>Repetir a Senha: </label> <input class="form-control"
+									required="required" type="password" size="20"
+									name="senhaRepetida" placeholder="Informe a senha" />
+							</div>
+							<div class="form-group" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+								<label>Perfil: </label> <select class="form-control" name="role">
+									<option value="ROLE_USER">USER</option>
+									<option value="ROLE_ADMIN">ADMIN</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Criar
+									conta</button>
+							</div>
+						</form>
+						<div class="alert alert-success" th:if="${mensagemSucesso}"
+							th:text="${mensagemSucesso}">
+							<a th:ref="@{/login}" class="btn btn-primary">Entrar no sistema</a>
+						</div>
+						<div class="alert alert-danger" th:if="${mensagemErro}"
+							th:text="${mensagemErro}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package br.ifpe.pg.provacolegiada.cadastro;
+ package br.ifpe.pg.provacolegiada.cadastro;
 
 import java.util.List;
 
@@ -11,8 +11,14 @@ public class TurmaService {
 
 	@Autowired
 	private TurmaRepository repositorio;
+	
+	@Autowired
+	private CursoRepository cursoRepo;
 
-	public List<Turma> listarTodas() {
+	public List<Turma> listarTodas() throws Exception {
+		if(cursoRepo.findAll().isEmpty()) {
+			throw new Exception("Não existi curso cadastrado");
+		}
 		return repositorio.findAll(Sort.by("curso.nome"));
 	}
 
