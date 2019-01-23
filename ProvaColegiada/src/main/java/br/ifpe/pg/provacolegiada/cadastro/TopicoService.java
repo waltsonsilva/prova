@@ -20,6 +20,9 @@ public class TopicoService {
     public <S> void salvar(S entity) {
         topicoRepository.saveAndFlush(null);
     }
+        public <S extends Topico> S salvar(S entity) {
+            return topicoRepository.saveAndFlush(entity);
+    }
 
     public void removerPorId(Integer id) {
         topicoRepository.deleteById(id);

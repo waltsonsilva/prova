@@ -3,24 +3,24 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Colegiada - Cadastro de Disciplinas</title>
+<title>Colegiada - Cadastro de Questões</title>
 </head>
 <body>
 	<div th:insert="header"></div>
 
 	<div class="container">
-		<h2>Disciplina</h2>
+		<h2>Questões</h2>
 		<h5>Adicionar/Editar/Pesquisar:</h5>
 		<form class="form-narrow form-horizontal" method="post"
 			th:action="@{/disciplinas/saveList}" th:object="${disciplina}">
 			<input type="hidden" id="id" th:field="*{id}" />
 			<table class="table table-striped">
 				<tr>
-					<td>Curso:</td>
+					<td>Tipo de Questão:</td>
 					<td>
-						<select class="form-control" id="curso" th:field="*{curso}">
+						<select class="form-control" id="curso" th:field="*{tipoQuestao}">
 							<option 
-								th:each="item : ${listaCursos}" 
+								th:each="item : ${listaTipoQuestao}" 
 								th:value="${item.id}"
 								
 								th:text="${item.nome}" selected="selected"></option>
@@ -28,32 +28,28 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Nome da disciplina: </td>
-					<td><input type="text" id="nome" size="40"
-					placeholder="Nome" th:field="*{nome}" /></td>
+					<td>Enunciado: </td>
+					<td><input type="text" id="enunciado" size="1000"
+					placeholder="Enunciado" th:field="*{enunciado}" /></td>
 				</tr>
 				<tr>
-					<td>Carga Horária: </td>
-					<td><input type="text" id="cargaHoraria"
-					placeholder="Carga Horária" th:field="*{cargaHoraria}" /></td>
+					<td>Tópico: </td>
+					<td><input type="text" id="topico"
+					placeholder="Topico" th:field="*{topico}" /></td>
 				</tr>
 				<tr>
-					<td>Pre Requisito</td>
-					<td><select class="form-control" id="prerequisito"
-						th:field="*{prerequisito}">
+					<td>Complexidade</td>
+					<td><select class="form-control" id="complexidade"
+						th:field="*{complexidade}">
 							<option style="text-transform: capitalize"
-								th:each="item : ${listarPrerequisito}" th:value="${item}"
+								th:each="item : ${listarComplexidade}" th:value="${item}"
 								th:text="${item.text}" selected="selected"></option>
 					</select></td>
 				</tr>
 				<tr>
-					<td>Periodo</td>
-					<td><select class="form-control" id="periodo"
-						th:field="*{periodo}">
-							<option style="text-transform: capitalize"
-								th:each="item : ${listarPeriodo}" th:value="${item}"
-								th:text="${item.text}" selected="selected"></option>
-					</select></td>
+					<td>Autor: </td>
+					<td><input type="text" id="enunciado" size="40"
+					placeholder="Autor" th:field="*{autor}" /></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right">
