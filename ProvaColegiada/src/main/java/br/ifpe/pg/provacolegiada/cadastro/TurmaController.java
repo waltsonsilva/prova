@@ -35,11 +35,17 @@ public class TurmaController {
 		}
 	}
 	
+	
+	
 	@GetMapping("list")
-	public ModelAndView pesquisar(Turma turma) throws Exception {
+	public ModelAndView pesquisar(Turma turma) {
 		ModelAndView mv = new ModelAndView("cadastros/turmas-list");
 		if (turma == null || turma.getId() == null) {
-			mv.addObject("lista", turmaService.listarTodas());	
+			try {
+				mv.addObject("lista", turmaService.listarTodas());
+			} catch (Exception e) {
+				mv.addObject("mensagemErro","Não é possível criar turmas sem cursos no sistema.");
+			}
 		} else {
 			mv.addObject("lista", turmaService.buscarPorCurso(turma.getCurso())); 	
 		}
@@ -50,7 +56,7 @@ public class TurmaController {
 	}
 
 	@Secured("ROLE_ADMIN")
-	private ModelAndView salvar(@Valid @ModelAttribute Turma turma, Errors errors, RedirectAttributes ra) throws Exception {
+	private ModelAndView salvar(@Valid @ModelAttribute Turma turma, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			ra.addFlashAttribute("mensagemErro", "Não foi possível salvar turma: " + errors.getFieldErrors());
 		} else {
@@ -61,18 +67,25 @@ public class TurmaController {
 				ra.addFlashAttribute("mensagemErro", "Não foi possível salvar turma: " + e.getMessage());
 			}
 		}
-		return pesquisar(new Turma());
+		try {
+			return pesquisar(new Turma());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
+
 
 	@GetMapping("edit/{id}")
 	@Secured("ROLE_ADMIN")
-	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) throws Exception {
+	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) {
 		Turma turma = turmaService.buscarPorId(id);
 		ModelAndView mv = new ModelAndView("cadastros/turmas-list");
 		try {
-			mv.addObject("lista", turmaService.listarTodas());	
-		}catch(Exception e) {
-			mv.addObject("mensagemErro", "Tem que haver cursos previamente cadastrados! ");
+			mv.addObject("lista", turmaService.listarTodas());
+		} catch (Exception e) {
+			mv.addObject("mensagemErro","Não é possível criar turmas sem cursos no sistema.");
 		}
 		
 		mv.addObject("listaCursos", cursoService.listarTodos());
@@ -82,7 +95,7 @@ public class TurmaController {
 	}
 
 	@GetMapping("/remover/{id}")
-	@Secured("ROLE_ADMI")
+	@Secured("ROLE_ADMIN")
 	public String remover(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		turmaService.removerPorId(id);
 		ra.addFlashAttribute("mensagemSucesso", "Turma removida com sucesso");

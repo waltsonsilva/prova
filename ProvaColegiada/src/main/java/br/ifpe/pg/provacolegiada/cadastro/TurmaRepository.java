@@ -11,4 +11,6 @@ public interface TurmaRepository extends JpaRepository<Turma, Integer> {
 
 	@Query("select e from Turma e where e.curso = :curso order by e.ano, e.entrada")
 	public List<Turma> findByCurso(Curso curso);
+	
+	public Turma findFirstByCursoNomeIgnoreCaseAndAnoAndEntrada(String nome,int ano,int entrada);
 }

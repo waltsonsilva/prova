@@ -15,9 +15,14 @@ public class TurmaService {
 	@Autowired
 	private CursoRepository cursoRepo;
 
-	public List<Turma> listarTodas() throws Exception {
+	public List<Turma> listarTodas() {
 		if(cursoRepo.findAll().isEmpty()) {
-			throw new Exception("Não existi curso cadastrado");
+			try {
+				throw new Exception("Não existi curso cadastrado");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return repositorio.findAll(Sort.by("curso.nome"));
 	}
@@ -30,7 +35,15 @@ public class TurmaService {
 		return repositorio.findById(id).orElse(null);
 	}
 
-	public <S extends Turma> S salvar(S entity) {
+	public <S extends Turma> S salvar(S entity) throws Exception {
+		if(entity.getCurso() == null) {
+			throw new Exception("Não é possível criar turmas sem cursos no sistema.");
+		}
+		Turma turma = repositorio.findFirstByCursoNomeIgnoreCaseAndAnoAndEntrada(entity.getCurso().getNome(), entity.getAno(),entity.getEntrada());
+		if(turma != null) {
+			throw new Exception("Não poderão existir duas turmas com mesmo curso, período, turno e semestre letivo");
+
+		}
 		return repositorio.saveAndFlush(entity);
 	}
 
