@@ -1,7 +1,5 @@
 package br.ifpe.pg.provacolegiada.cadastro;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

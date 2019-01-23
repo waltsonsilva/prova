@@ -3,6 +3,7 @@ package br.ifpe.pg.provacolegiada.cadastro;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,7 @@ public class TurmaController {
 		return mv;
 	}
 
+	@Secured("ROLE_ADMIN")
 	private ModelAndView salvar(@Valid @ModelAttribute Turma turma, Errors errors, RedirectAttributes ra) throws Exception {
 		if (errors.hasErrors()) {
 			ra.addFlashAttribute("mensagemErro", "Não foi possível salvar turma: " + errors.getFieldErrors());
@@ -63,6 +65,7 @@ public class TurmaController {
 	}
 
 	@GetMapping("edit/{id}")
+	@Secured("ROLE_ADMIN")
 	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) throws Exception {
 		Turma turma = turmaService.buscarPorId(id);
 		ModelAndView mv = new ModelAndView("cadastros/turmas-list");
@@ -79,6 +82,7 @@ public class TurmaController {
 	}
 
 	@GetMapping("/remover/{id}")
+	@Secured("ROLE_ADMI")
 	public String remover(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		turmaService.removerPorId(id);
 		ra.addFlashAttribute("mensagemSucesso", "Turma removida com sucesso");

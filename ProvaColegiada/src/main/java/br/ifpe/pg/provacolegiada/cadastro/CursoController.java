@@ -3,6 +3,7 @@ package br.ifpe.pg.provacolegiada.cadastro;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class CursoController {
 	}
 
 	@PostMapping("salvar")
+	@Secured("ROLE_ADMIN")
 	public String salvar(@Valid @ModelAttribute Curso curso, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			ra.addFlashAttribute("mensagemErro", "Não foi possível salvar curso: " + errors.getFieldErrors());
@@ -49,6 +51,7 @@ public class CursoController {
 	}
 
 	@GetMapping("edit/{id}")
+	@Secured("ROLE_ADMIN")
 	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) {
 		Curso curso = service.buscarPorId(id);
 		ModelAndView mav = new ModelAndView("/cadastro/cursos-list");
@@ -58,6 +61,7 @@ public class CursoController {
 	}
 
 	@GetMapping("/remover/{id}")
+	@Secured("ROLE_ADMIN")
 	public String remover(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		Curso cursoRemovido = service.removerPorId(id);
 		ra.addFlashAttribute("mensagemSucesso", "Curso removido com sucesso [" + cursoRemovido.getNome() + "]");

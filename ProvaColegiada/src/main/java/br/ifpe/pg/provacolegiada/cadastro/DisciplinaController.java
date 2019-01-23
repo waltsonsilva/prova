@@ -3,6 +3,7 @@ package br.ifpe.pg.provacolegiada.cadastro;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,10 +44,12 @@ public class DisciplinaController {
 			mv.addObject("lista", disciplinaService.buscarPorNomeCurso(disciplina.getNome(), disciplina.getCurso().getId())); // .buscarPorExemplo(disciplina)); // .buscarPorNome(disciplina.getNome()));	
 		}
 		mv.addObject("listaCursos", cursoService.listarTodos());
+		mv.addObject("listarPeriodo", Periodo.values());
 		mv.addObject("disciplina", disciplina);
 		return mv;
 	}
 
+	@Secured("ROLE_ADMIN")
 	private ModelAndView salvar(@Valid @ModelAttribute Disciplina disciplina, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			ra.addFlashAttribute("mensagemErro", "Não foi possível salvar disciplina: " + errors.getFieldErrors());
@@ -62,16 +65,19 @@ public class DisciplinaController {
 	}
 
 	@GetMapping("edit/{id}")
+	@Secured("ROLE_ADMIN")
 	public ModelAndView exibirEdicao(@PathVariable("id") Integer id) {
 		Disciplina disciplina = disciplinaService.buscarPorId(id);
 		ModelAndView mv = new ModelAndView("cadastros/disciplinas-list");
 		mv.addObject("lista", disciplinaService.listarTodas());	
 		mv.addObject("listaCursos", cursoService.listarTodos());
+		mv.addObject("listarPeriodo", Periodo.values());
 		mv.addObject("disciplina", disciplina);
 		return mv;
 	}
 
-	@GetMapping("/remover/{id}")
+	@GetMapping("/remover/{id}")	
+	@Secured("ROLE_ADMIN")
 	public String remover(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		disciplinaService.removerPorId(id);
 		ra.addFlashAttribute("mensagemSucesso", "Disciplina removida com sucesso");

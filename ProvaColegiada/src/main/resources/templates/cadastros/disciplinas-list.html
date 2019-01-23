@@ -38,6 +38,15 @@
 					placeholder="Carga Horária" th:field="*{cargaHoraria}" /></td>
 				</tr>
 				<tr>
+					<td>Periodo</td>
+					<td><select class="form-control" id="periodo"
+						th:field="*{periodo}">
+							<option style="text-transform: capitalize"
+								th:each="item : ${listarPeriodo}" th:value="${item}"
+								th:text="${item.text}" selected="selected"></option>
+					</select></td>
+				</tr>
+				<tr>
 					<td colspan="2" align="right">
 						<button type="submit" class="btn btn-primary"  name="action" value="salvar">Salvar</button>&nbsp;&nbsp;					
 						<button type="submit" class="btn btn-info" name="action" value="pesquisar">Pesquisar</button>&nbsp;&nbsp;
@@ -64,7 +73,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="disciplina : ${lista}">
-					<td th:text="${disciplina.curso.nome}"></td>
+					<td th:text="${disciplina.curso. nome}"></td>
 					<td th:text="${disciplina.nome}"></td>
 					<td th:text="${disciplina.cargaHoraria}"></td>
 					<td><a class="btn btn-warning"
