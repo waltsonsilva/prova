@@ -22,7 +22,7 @@ public class Questao {
 	@ManyToOne
 	private Topico topico;
 	@Enumerated(EnumType.STRING)
-	private NivelComplexidade nivelComplexidade;
+	private Complexidade complexidade;
 	@ManyToOne
 	private Professor autor;
 	
@@ -30,13 +30,13 @@ public class Questao {
 		super();
 	}
 	public Questao(Integer id, TipoQuestao tipoQuestao, String enunciado, Topico topico,
-			NivelComplexidade nivelComplexidade, Professor autor) {
+			Complexidade complexidade, Professor autor) {
 		super();
 		this.id = id;
 		this.tipoQuestao = tipoQuestao;
 		this.enunciado = enunciado;
 		this.topico = topico;
-		this.nivelComplexidade = nivelComplexidade;
+		this.complexidade = complexidade;
 		this.setAutor(autor);
 	}
 	public Integer getId() {
@@ -63,11 +63,11 @@ public class Questao {
 	public void setTopico(Topico topico) {
 		this.topico = topico;
 	}
-	public NivelComplexidade getNivelComplexidade() {
-		return nivelComplexidade;
+	public Complexidade getNivelComplexidade() {
+		return complexidade;
 	}
-	public void setNivelComplexidade(NivelComplexidade nivelComplexidade) {
-		this.nivelComplexidade = nivelComplexidade;
+	public void setNivelComplexidade(Complexidade complexidade) {
+		this.complexidade = complexidade;
 	}
 	public Professor getAutor() {
 		return autor;
