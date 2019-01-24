@@ -18,7 +18,7 @@ public class TurmaService {
 	public List<Turma> listarTodas() {
 		if(cursoRepo.findAll().isEmpty()) {
 			try {
-				throw new Exception("Não existi curso cadastrado");
+				throw new Exception("Não existe curso cadastrado");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

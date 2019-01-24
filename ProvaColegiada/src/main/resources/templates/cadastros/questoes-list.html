@@ -12,7 +12,7 @@
 		<h2>Questões</h2>
 		<h5>Adicionar/Editar/Pesquisar:</h5>
 		<form class="form-narrow form-horizontal" method="post"
-			th:action="@{/disciplinas/saveList}" th:object="${disciplina}">
+			th:action="@{/questoes/saveList}" th:object="${questao}">
 			<input type="hidden" id="id" th:field="*{id}" />
 			<table class="table table-striped">
 				<tr>
@@ -21,15 +21,15 @@
 						<select class="form-control" id="curso" th:field="*{tipoQuestao}">
 							<option 
 								th:each="item : ${listaTipoQuestao}" 
-								th:value="${item.id}"
+								th:value="${item}"
 								
-								th:text="${item.nome}" selected="selected"></option>
+								th:text="${item.text}" selected="selected"></option>
 						</select> 
 					</td>
 				</tr>
 				<tr>
 					<td>Enunciado: </td>
-					<td><input type="text" id="enunciado" size="1000"
+					<td><input type="text" id="enunciado" size="100"
 					placeholder="Enunciado" th:field="*{enunciado}" /></td>
 				</tr>
 				<tr>
@@ -37,15 +37,15 @@
 					<td><input type="text" id="topico"
 					placeholder="Topico" th:field="*{topico}" /></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>Complexidade</td>
 					<td><select class="form-control" id="complexidade"
 						th:field="*{complexidade}">
 							<option style="text-transform: capitalize"
-								th:each="item : ${listarComplexidade}" th:value="${item}"
+								th:each="item : ${listaComplexidade}" th:value="${item}"
 								th:text="${item.text}" selected="selected"></option>
 					</select></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td>Autor: </td>
 					<td><input type="text" id="enunciado" size="40"

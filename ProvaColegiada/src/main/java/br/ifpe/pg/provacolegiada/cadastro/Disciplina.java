@@ -23,8 +23,8 @@ public class Disciplina {
 	private int cargaHoraria;
 	private String ementa;
 	
-	@OneToMany
-	private Set<Disciplina> preRequisitos;
+/*	@OneToMany
+	private Set<Disciplina> preRequisitos;*/
 
 	@Enumerated(EnumType.STRING)
 	private Periodo periodo;
@@ -39,7 +39,7 @@ public class Disciplina {
 		this.curso = curso;
 		this.cargaHoraria = cargaHoraria;
 		this.ementa = ementa;
-		this.preRequisitos = preRequisitos;
+		
 		this.periodo = periodo;
 	}
 	public Integer getId() {
@@ -72,12 +72,7 @@ public class Disciplina {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	public Set<Disciplina> getPreRequisitos() {
-		return preRequisitos;
-	}
-	public void setPreRequisitos(Set<Disciplina> preRequisitos) {
-		this.preRequisitos = preRequisitos;
-	}
+	
 	public Periodo getPeriodo() {
 		return periodo;
 	}

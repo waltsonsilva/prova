@@ -37,16 +37,7 @@
 					<td><input type="text" id="cargaHoraria"
 					placeholder="Carga Horária" th:field="*{cargaHoraria}" /></td>
 				</tr>
-				<tr>
-					<td>Pre Requisito</td>
-					<td><select class="form-control" id="prerequisito"
-						th:field="*{prerequisito}">
-							<option style="text-transform: capitalize"
-								th:each="item : ${listarPrerequisito}" th:value="${item}"
-								th:text="${item.text}" selected="selected"></option>
-					</select></td>
-				</tr>
-				<tr>
+ 				<tr>
 					<td>Periodo</td>
 					<td><select class="form-control" id="periodo"
 						th:field="*{periodo}">

@@ -25,12 +25,14 @@
 					<td><input type="text" id="email" size="40"
 					placeholder="E-mail" th:field="*{email}" /></td>
 				</tr>
-				<td><select class="form-control" id="areaspesquisa"
-						th:field="*{areaspesquisa}">
+				<tr>
+				<td>Área de Pesquisa</td>
+				<td><select class="form-control" id="areasPesquisa"
+						th:field="*{areasPesquisa}" >
 							<option style="text-transform: capitalize"
-								th:each="item : ${listaAreasPesquisa}" th:value="${item.id}"
-								th:text="${item.nome}" selected="selected"></option>
-					</select></td>
+								th:each="item : ${listaAreasPesquisa}" th:value="${item}"
+								th:text="${item.text}" selected="selected" ></option>
+					</select></td></tr>
 				<tr>
 					<td colspan="2" align="right">
 						<button type="submit" class="btn btn-primary"  name="action" value="salvar">Salvar</button>&nbsp;&nbsp;					

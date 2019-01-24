@@ -40,6 +40,7 @@ public class ProfessorController {
 		} else {
 			mv.addObject("lista", professorService.buscarPorNome(professor.getNome()));
 		}
+		mv.addObject("listaAreasPesquisa", AreasPesquisa.values());
 		mv.addObject("professor", professor);
 		return mv;
 	}
@@ -63,6 +64,7 @@ public class ProfessorController {
 		Professor professor = professorService.buscarPorId(id);
 		ModelAndView mv = new ModelAndView("cadastros/professores-list");
 		mv.addObject("lista", professorService.listarTodas());
+		mv.addObject("listaAreasPesquisa", AreasPesquisa.values());
 		mv.addObject("professor", professor);
 		return mv;
 	}

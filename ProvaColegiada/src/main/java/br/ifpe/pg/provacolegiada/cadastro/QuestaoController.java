@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import br.ifpe.pg.provacolegiada.provacolegiada.Complexidade;
 import br.ifpe.pg.provacolegiada.provacolegiada.Questao;
 
 @Controller
 @RequestMapping("/questoes/")
+
 public class QuestaoController {
 
     @Autowired
@@ -49,14 +51,13 @@ public class QuestaoController {
         mv.addObject("listaTipoQuestao", TipoQuestao.values());
         mv.addObject("listaComplexidade", Complexidade.values());
         mv.addObject("listarTodosProfessores", professorService.listarTodas());
-        mv.addObject("listaTodosTopicos", topicoService.listarTodos());
+        //mv.addObject("listaTodosTopicos", topicoService.listarTodos());
 
         mv.addObject("mensagemErro", ra.getFlashAttributes().get("mensagemErro"));
         mv.addObject("mensagemSucesso", ra.getFlashAttributes().get("mensagemSucesso"));
 
         return mv;
     }
-
     private ModelAndView salvar(@Valid @ModelAttribute Questao questao, Errors errors, RedirectAttributes ra) {
         if (errors.hasErrors()) {
             ra.addFlashAttribute("mensagemErro", "Não foi possível salvar questao: " + errors.getFieldErrors());

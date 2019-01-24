@@ -45,6 +45,7 @@ public class DisciplinaController {
 		}
 		mv.addObject("listaCursos", cursoService.listarTodos());
 		mv.addObject("listarPeriodo", Periodo.values());
+		
 		mv.addObject("disciplina", disciplina);
 		return mv;
 	}
